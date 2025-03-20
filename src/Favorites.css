@@ -1,0 +1,62 @@
+﻿.favorites {
+    padding: 20px;
+    max-width: 800px;
+    margin: 0 auto;
+    background-color: #1e1e1e;
+    color: #ffffff;
+    border-radius: 8px;
+}
+
+    .favorites select {
+        padding: 10px;
+        margin-bottom: 20px;
+        font-size: 16px;
+        background-color: #333;
+        color: #ffffff;
+        border: 1px solid #444;
+        border-radius: 4px;
+    }
+
+.games-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+}
+
+.game-card {
+    border: 1px solid #333;
+    border-radius: 8px;
+    padding: 10px;
+    text-align: center;
+    background-color: #1e1e1e;
+    color: #ffffff;
+}
+
+    .game-card img {
+        width: 100%;
+        border-radius: 8px;
+    }
+
+    .game-card button {
+        margin-top: 10px;
+        padding: 5px 10px;
+        background-color: #ff4d4d;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+
+@media (max-width: 768px) {
+    .favorites {
+        padding: 10px;
+    }
+
+    .games-list {
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    }
+
+    .game-card {
+        padding: 5px;
+    }
+}
