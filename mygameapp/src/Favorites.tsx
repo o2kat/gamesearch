@@ -4,13 +4,13 @@ import './Favorites.css';
 
 const Favorites = () => {
     const { favorites, removeFromFavorites } = useFavorites();
-    const [sortBy, setSortBy] = useState('rating'); // По умолчанию сортировка по рейтингу
+    const [sortBy, setSortBy] = useState<'rating' | 'released'>('rating');
 
     const sortedFavorites = [...favorites].sort((a, b) => {
         if (sortBy === 'rating') {
             return b.rating - a.rating; // Сортировка по рейтингу (от высокого к низкому)
         } else if (sortBy === 'released') {
-            return new Date(b.released) - new Date(a.released); // Сортировка по дате выхода (от новых к старым)
+            return new Date(b.released).getTime() - new Date(a.released).getTime(); // Сортировка по дате выхода (от новых к старым)
         }
         return 0;
     });
@@ -18,7 +18,7 @@ const Favorites = () => {
     return (
         <div className="favorites">
             <h2>Избранные игры</h2>
-            <select value={sortBy} onChange={(e) => setSortBy(e.target.value)}>
+            <select value={sortBy} onChange={(e) => setSortBy(e.target.value as 'rating' | 'released')}>
                 <option value="rating">Сортировать по рейтингу</option>
                 <option value="released">Сортировать по дате выхода</option>
             </select>

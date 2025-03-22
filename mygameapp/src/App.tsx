@@ -4,14 +4,22 @@ import { Link } from 'react-router-dom';
 import { useFavorites } from './useFavorites';
 import './App.css';
 
+interface Game {
+    id: number;
+    name: string;
+    background_image: string;
+    rating: number;
+    released: string;
+}
+
 const App = () => {
-    const [games, setGames] = useState([]);
-    const [searchTerm, setSearchTerm] = useState('');
-    const [selectedGenre, setSelectedGenre] = useState('');
-    const [currentPage, setCurrentPage] = useState(1);
-    const [totalPages, setTotalPages] = useState(1);
-    const [isLoading, setIsLoading] = useState(false);
-    const [error, setError] = useState(null);
+    const [games, setGames] = useState<Game[]>([]);
+    const [searchTerm, setSearchTerm] = useState<string>('');
+    const [selectedGenre, setSelectedGenre] = useState<string>('');
+    const [currentPage, setCurrentPage] = useState<number>(1);
+    const [totalPages, setTotalPages] = useState<number>(1);
+    const [isLoading, setIsLoading] = useState<boolean>(false);
+    const [error, setError] = useState<string | null>(null);
     const { favorites, addToFavorites } = useFavorites();
 
     const genres = [

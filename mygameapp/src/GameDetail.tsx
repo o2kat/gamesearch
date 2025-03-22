@@ -3,11 +3,23 @@ import { useState, useEffect } from 'react';
 import axios from 'axios';
 import './GameDetail.css';
 
+interface Game {
+    id: number;
+    name: string;
+    background_image: string;
+    description_raw: string;
+    rating: number;
+    released: string;
+    platforms: { platform: { id: number; name: string } }[];
+    genres: { id: number; name: string }[];
+    short_screenshots: { id: number; image: string }[];
+}
+
 const GameDetail = () => {
-    const { id } = useParams();
-    const [game, setGame] = useState(null);
-    const [isLoading, setIsLoading] = useState(true);
-    const [error, setError] = useState(null);
+    const { id } = useParams<{ id: string }>();
+    const [game, setGame] = useState<Game | null>(null);
+    const [isLoading, setIsLoading] = useState<boolean>(true);
+    const [error, setError] = useState<string | null>(null);
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -16,7 +28,6 @@ const GameDetail = () => {
         axios
             .get(`https://api.rawg.io/api/games/${id}?key=0a407f3ca1fe4cf3a7b7cd04d2577ea6`)
             .then((res) => {
-                console.log('Детали игры:', res.data); // Проверьте данные в консоли
                 setGame(res.data);
             })
             .catch((error) => {
@@ -28,6 +39,7 @@ const GameDetail = () => {
 
     if (error) return <p style={{ color: 'red' }}>{error}</p>;
     if (isLoading) return <p>Загрузка...</p>;
+    if (!game) return <p>Игра не найдена</p>;
 
     return (
         <div className="game-detail">
