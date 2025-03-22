@@ -1,13 +1,10 @@
-import { StrictMode } from 'react';
-import { createRoot } from 'react-dom/client';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import './index.css';
-import App from './App.tsx';
-import GameDetail from './GameDetail.tsx';
-import Favorites from './Favorites.tsx';
+import App from './App';
+import GameDetail from './GameDetail';
+import Favorites from './Favorites';
 
-createRoot(document.getElementById('root')!).render(
-    <StrictMode>
+function Main() {
+    return (
         <Router>
             <Routes>
                 <Route path="/" element={<App />} />
@@ -15,5 +12,7 @@ createRoot(document.getElementById('root')!).render(
                 <Route path="/favorites" element={<Favorites />} />
             </Routes>
         </Router>
-    </StrictMode>,
-);
+    );
+}
+
+export default Main;

@@ -26,15 +26,16 @@ const GameDetail = () => {
         setIsLoading(true);
         setError(null);
         axios
-            .get(`https://api.rawg.io/api/games/${id}?key=0a407f3ca1fe4cf3a7b7cd04d2577ea6`)
+            .get<Game>(`https://api.rawg.io/api/games/${id}?key=0a407f3ca1fe4cf3a7b7cd04d2577ea6`)
             .then((res) => {
                 setGame(res.data);
+                setIsLoading(false); // Устанавливаем isLoading в false здесь
             })
             .catch((error) => {
                 console.error('Ошибка:', error);
                 setError('Не удалось загрузить данные. Пожалуйста, попробуйте позже.');
-            })
-            .finally(() => setIsLoading(false));
+                setIsLoading(false); // Устанавливаем isLoading в false здесь
+            });
     }, [id]);
 
     if (error) return <p style={{ color: 'red' }}>{error}</p>;

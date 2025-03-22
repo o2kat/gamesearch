@@ -12,6 +12,11 @@ interface Game {
     released: string;
 }
 
+interface ApiResponse {
+    results: Game[];
+    count: number;
+}
+
 const App = () => {
     const [games, setGames] = useState<Game[]>([]);
     const [searchTerm, setSearchTerm] = useState<string>('');
@@ -37,16 +42,17 @@ const App = () => {
         }
 
         axios
-            .get(url)
+            .get<ApiResponse>(url)
             .then((res) => {
                 setGames(res.data.results);
-                setTotalPages(Math.ceil(res.data.count / 20)); // 20 игр на странице
+                setTotalPages(Math.ceil(res.data.count / 20));
+                setIsLoading(false); // Устанавливаем isLoading в false здесь
             })
             .catch((error) => {
                 console.error('Ошибка:', error);
                 setError('Не удалось загрузить данные. Пожалуйста, попробуйте позже.');
-            })
-            .finally(() => setIsLoading(false));
+                setIsLoading(false); // Устанавливаем isLoading в false здесь
+            });
     }, [searchTerm, selectedGenre, currentPage]);
 
     return (
